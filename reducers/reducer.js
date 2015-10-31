@@ -1,32 +1,33 @@
 import * as FilterType from '../constants/filters';
 import * as ActionType from '../constants/actions';
+import { combineReducers } from 'redux';
 
-export default function reduce(
-		state = {todos: [], filter: FilterType.FILTER_ALL}, action) {
+function todos(state = [], action) {
 	switch(action.type) {
 		case ActionType.ADD_TODO:
-			return {
-				todos: [...state.todos, {desc: action.desc, done:false}], 
-				filter: state.filter
-			};
+			return [...state, {desc: action.desc, done:false}];
 		case ActionType.TOGGLE_TODO:
-			let item = state.todos[action.index];
-			return {
-				todos: 
-						[...state.todos.slice(0, action.index),
-						{desc: item.desc, done: !item.done},
-						...state.todos.slice(action.index+1)],
-				filter: state.filter
-			};
+			let item = state[action.index];
+			return [
+				...state.slice(0, action.index),
+				{desc: item.desc, done: !item.done},
+				...state.slice(action.index+1)
+			];
 		case ActionType.CLEAR_TODO:
-			return { 
-				todos: state.todos.filter((item) => !item.done), 
-				filter: state.filter 
-			};
-
-		case ActionType.SET_FILTER:
-			return { todos: state.todos, filter: action.filter };
+			return state.filter((item) => !item.done);
 		default:
 			return state;
 	}
 }
+
+function filter(state = FilterType.FILTER_ALL, action) {
+	switch(action.type) {
+		case ActionType.SET_FILTER:
+			return action.filter;
+		default:
+			return state;
+	}
+}
+
+//>> reducers' names are the same as state's properties 
+export default combineReducers({todos, filter}); 
