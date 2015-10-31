@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 
 export default class TodoItem extends Component {
+	renderDesc(desc, checked) {
+		if(checked) {
+			return (
+				<del> {desc} </del>
+			);
+		} else {
+			return (
+				<span> {desc} </span>
+			);	
+		}
+		
+	}
 	render() {
 		let { index, checked, desc, onItemClick } = this.props;
 		//console.log(index);
@@ -15,7 +27,7 @@ export default class TodoItem extends Component {
 							} 
 						}
 				/>
-				<span> {desc} </span>
+				{ this.renderDesc(desc, checked) }
 			</div>
 		);
 	}
