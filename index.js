@@ -42,7 +42,10 @@ function reduce(state = {todos: [], filter: FILTER_ALL}, action) {
 				filter: state.filter
 			};
 		case CLEAR_TODO:
-			return { todos: [], filter: state.filter };
+			return { 
+				todos: state.todos.filter((item) => !item.done), 
+				filter: state.filter 
+			};
 
 		case SET_FILTER:
 			return { todos: state.todos, filter: action.filter };
@@ -63,7 +66,7 @@ store.subscribe(()=>{
 class TodoItem extends Component {
 	render() {
 		let { index, checked, desc, onItemClick } = this.props;
-		console.log(index);
+		//console.log(index);
 		return (
 			<div>
 				<input 
@@ -155,7 +158,7 @@ class Input extends Component {
 	}
 	
 	handleEnter(e) {
-		console.log(this);
+		//console.log(this);
 		if(e.which === 13) {
 			this.handleAddClick();
 		}
@@ -185,6 +188,11 @@ class TodoPane extends Component {
 	// handleItemClick(key, checked) {
 	// 	let dispatch = this.props.dispatch; //TODO: why this failed?
 	// }
+
+	handleClear() {
+		this.props.dispatch(clear_todo());
+	}
+
 	render() {
 		let { todos, filter, dispatch } = this.props;
 		return (
@@ -209,19 +217,17 @@ class TodoPane extends Component {
 							(filter) => {
 								dispatch(set_filter(filter));
 							}
-						}/>
+						}
+				/>
+				<button onClick={this.handleClear.bind(this)}> 
+					Clear Completed 
+				</button>
 			</div>
 		);
 	}
 }
 
-// store.dispatch(add_todo('hey'));
-// store.dispatch(add_todo('ho'));
-// store.dispatch(add_todo("let's go"));
 
-// store.dispatch(toggle_todo(2, true));
-// store.dispatch(toggle_todo(0, true));
-// store.dispatch(set_filter(FILTER_UNDONE));
 
 function getFilteredTodos(todos, filter) {
 	switch(filter) {
@@ -251,5 +257,13 @@ render(
 		document.getElementById('root'));
 
 
+// store.dispatch(add_todo('hey'));
+// store.dispatch(add_todo('ho'));
+// store.dispatch(add_todo("let's go"));
+
+// store.dispatch(toggle_todo(2, true));
+// store.dispatch(toggle_todo(0, true));
+// store.dispatch(clear_todo());
+// store.dispatch(set_filter(FILTER_UNDONE));
 
 
