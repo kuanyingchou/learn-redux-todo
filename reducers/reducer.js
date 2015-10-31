@@ -13,14 +13,14 @@ function todos(state = [], action) {
 				{desc: item.desc, done: !item.done},
 				...state.slice(action.index+1)
 			];
-		case ActionType.CLEAR_TODO:
+		case ActionType.CLEAR_DONE:
 			return state.filter((item) => !item.done);
 		default:
 			return state;
 	}
 }
 
-function filter(state = FilterType.FILTER_ALL, action) {
+function filter(state = FilterType.ALL, action) {
 	switch(action.type) {
 		case ActionType.SET_FILTER:
 			return action.filter;

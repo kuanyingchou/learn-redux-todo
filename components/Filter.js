@@ -27,11 +27,11 @@ export default class Filter extends Component {
 		let filter = this.props.filter;
 		return (
 			<div>
-				{ this.renderFilter('All', FilterType.FILTER_ALL, filter) }
+				{ this.renderFilter('All', FilterType.ALL, filter) }
 				<span>, </span>
-				{ this.renderFilter('Active', FilterType.FILTER_UNDONE, filter) }
+				{ this.renderFilter('Active', FilterType.ACTIVE, filter) }
 				<span>, </span>
-				{ this.renderFilter('Done', FilterType.FILTER_DONE, filter) }
+				{ this.renderFilter('Done', FilterType.DONE, filter) }
 			</div>
 		);
 	}

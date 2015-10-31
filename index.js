@@ -21,11 +21,11 @@ let store = createStoreWithMiddleware(reduce);
 //=============
 function getFilteredTodos(todos, filter) {
 	switch(filter) {
-		case FilterType.FILTER_ALL:
+		case FilterType.ALL:
 			return todos;
-		case FilterType.FILTER_DONE:
+		case FilterType.DONE:
 			return todos.filter((item)=>item.done);
-		case FilterType.FILTER_UNDONE:
+		case FilterType.ACTIVE:
 			return todos.filter((item)=> ! item.done);
 	}
 }
@@ -47,13 +47,13 @@ render(
 );
 
 
-// store.dispatch(add_todo('hey'));
-// store.dispatch(add_todo('ho'));
-// store.dispatch(add_todo("let's go"));
+// store.dispatch(addTodo('hey'));
+// store.dispatch(addTodo('ho'));
+// store.dispatch(addTodo("let's go"));
 
-// store.dispatch(toggle_todo(2, true));
-// store.dispatch(toggle_todo(0, true));
-// store.dispatch(clear_todo());
-// store.dispatch(set_filter(FILTER_UNDONE));
+// store.dispatch(toggleTodo(2, true));
+// store.dispatch(toggleTodo(0, true));
+// store.dispatch(clearDone());
+// store.dispatch(setFilter(ACTIVE));
 
 

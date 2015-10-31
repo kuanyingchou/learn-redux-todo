@@ -10,7 +10,7 @@ export default class TodoPane extends Component {
 	// }
 
 	handleClear() {
-		this.props.dispatch(ActionCreator.clear_todo());
+		this.props.dispatch(ActionCreator.clearDone());
 	}
 
 	render() {
@@ -19,7 +19,7 @@ export default class TodoPane extends Component {
 			<div>
 				<Input onAddClick={ 
 					(desc)=>{ 
-						dispatch(ActionCreator.add_todo(desc)); 
+						dispatch(ActionCreator.addTodo(desc)); 
 					}
 				}
 				/>
@@ -27,7 +27,7 @@ export default class TodoPane extends Component {
 						todos={todos} 
 						onItemClick={
 							(key)=>{
-								dispatch(ActionCreator.toggle_todo(key));
+								dispatch(ActionCreator.toggleTodo(key));
 							}
 						}
 				/>
@@ -35,11 +35,15 @@ export default class TodoPane extends Component {
 						filter={filter} 
 						onFilterClick={
 							(filter) => {
-								dispatch(ActionCreator.set_filter(filter));
+								dispatch(ActionCreator.setFilter(filter));
 							}
 						}
 				/>
-				<button onClick={this.handleClear.bind(this)}> 
+				<button 
+						onClick={this.handleClear.bind(this)}
+						disabled={
+							todos.filter((t)=>t.done).length > 0?
+							false: true }> 
 					Clear Completed 
 				</button>
 			</div>
