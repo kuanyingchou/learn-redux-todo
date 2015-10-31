@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider, connect } from 'react-redux';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
@@ -6,14 +6,17 @@ import TodoPane from './components/TodoPane';
 import * as FilterType from './constants/filters';
 import * as ActionType from './constants/actions';
 import reduce from './reducers/reducer';
+import createLogger from 'redux-logger';
 
-let store = createStore(reduce);
+let logger = createLogger();
+let createStoreWithMiddleware = applyMiddleware(logger)(createStore);
+let store = createStoreWithMiddleware(reduce);
 
-store.subscribe(()=>{
-	console.log('[');
-	store.getState().todos.forEach((i)=>console.log(i));
-	console.log(']');
-});
+// store.subscribe(()=>{
+// 	console.log('[');
+// 	store.getState().todos.forEach((i)=>console.log(i));
+// 	console.log(']');
+// });
 
 //=============
 function getFilteredTodos(todos, filter) {

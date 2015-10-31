@@ -9,7 +9,7 @@ export default class TodoItem extends Component {
 				<input 
 						type="checkbox" 
 						checked = { checked } 
-						onClick = { 
+						onChange = { 
 							(e) => {
 								onItemClick(index);
 							} 

@@ -5,6 +5,7 @@ export default class TodoList extends Component {
 	renderItem(item, index) {
 		return (
 			<TodoItem 
+				key = {index}
 				index = {index}
 				checked = {item.done} 
 				desc = {item.desc}
