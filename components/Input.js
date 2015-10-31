@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 
 export default class Input extends Component {
+	constructor() {
+		super();
+		this.state = { value: '' };
+	}
 	handleAddClick(e) {
-		let input = this.refs.desc;
-		if(!input.value) return;
-		let desc = input.value.trim();
+		if(!this.state.value) return;
+		let desc = this.state.value.trim();
 		this.props.onAddClick(desc);
-		input.value = '';
+		this.setState({value:''});
+	}
+
+	handleChange(e) {
+		this.setState({value: e.target.value});
 	}
 	
 	handleEnter(e) {
@@ -23,12 +30,15 @@ export default class Input extends Component {
 				<input 
 						type="text" 
 						placeholder="Add New Todos Here" 
+						value={ this.state.value }
 						autoFocus="true"
-						ref="desc" 
+						onChange={ this.handleChange.bind(this) }
 						onKeyDown={ this.handleEnter.bind(this) } 
 
 				/>
-				<button onClick={ this.handleAddClick.bind(this) } >
+				<button 
+						onClick={ this.handleAddClick.bind(this) } 
+						disabled={this.state.value?false:true}>
 					Add
 				</button>
 			</div>
